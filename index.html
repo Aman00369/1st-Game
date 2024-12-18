@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Man's Crazy Calculus - Greatest of All Time 🧠🎉</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2F5B3C, #3C8D3E); /* Bold Forest Green gradient */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 14px;
+            text-align: center;
+            padding: 0 15px;
+            overflow: hidden;
+        }
+
+        /* Main Game Container */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.5s ease-in-out;
+            color: #E0E0E0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #D1D1D1;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Question Area */
+        #question {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            line-height: 1.4;
+            min-height: 70px;
+        }
+
+        /* Input and Button Styling */
+        select, input, button {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            border: 2px solid #2D6A3A;
+            border-radius: 10px;
+            outline: none;
+            background-color: #4D8B59;
+            color: white;
+            margin-top: 15px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        select:focus, input:focus {
+            border-color: #A8D08D;
+            box-shadow: 0 0 15px rgba(168, 208, 141, 0.5);
+        }
+
+        button {
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            padding: 16px;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Timer and Progress Bar */
+        #score, #streak, #timer {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #timer {
+            font-size: 1.4rem;
+            color: #FFDD57;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 20px;
+            margin-top: 15px;
+            height: 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #2F5B3C;
+            border-radius: 20px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Feedback Styling */
+        .feedback {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 0.5s ease, color 0.5s ease;
+        }
+
+        .correct { color: #4CAF50; opacity: 1; } /* Green for correct */
+        .wrong { color: #E74C3C; opacity: 1; } /* Red for wrong */
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 100;
+            width: 8px;
+            height: 8px;
+            background-color: #FFDD57;
+            animation: confetti 1.5s linear infinite;
+        }
+
+        @keyframes confetti {
+            0% { opacity: 1; transform: translate(-50%, -50%) rotate(0deg); }
+            100% { opacity: 0; transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            select, input, button {
+                padding: 12px;
+                font-size: 1rem;
+            }
+
+            #score, #streak, #timer {
+                font-size: 1.1rem;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            #question {
+                font-size: 1.4rem;
+                padding: 12px;
+            }
+
+            .progress-bar-container {
+                height: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>A-Man's Crazy Calculus 🧠🎉</h1>
+
+        <!-- Difficulty Selector -->
+        <select id="difficulty" onchange="resetGame()">
+            <option value="easy">Easy</option>
+            <option value="moderate">Moderate</option>
+            <option value="difficult">Difficult</option>
+        </select>
+
+        <!-- Question Area -->
+        <div id="question">Solve: 8 + 4 🧮</div>
+
+        <input type="number" id="answer" placeholder="Enter your answer" autofocus>
+
+        <button onclick="checkAnswer()">Submit 🏆</button>
+
+        <!-- Game Stats -->
+        <div id="score">Score: 0 🏅</div>
+        <div id="streak">Streak: 0 💪</div>
+        <div id="timer">Time Left: <span id="time">60</span> seconds ⏳</div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="feedback" id="feedback"></div>
+    </div>
+
+    <script>
+        let score = 0, streak = 0, time = 60, correctAnswer;
+        const timerDisplay = document.getElementById("time");
+        const feedback = document.getElementById("feedback");
+        const questionEl = document.getElementById("question");
+        const progressBar = document.getElementById("progress-bar");
+        const difficultySelector = document.getElementById("difficulty");
+
+        // Generate Random Question based on Difficulty
+        function generateQuestion() {
+            let num1, num2, operation;
+            const difficulty = difficultySelector.value;
+            const maxNum = difficulty === 'easy' ? 10 : difficulty === 'moderate' ? 50 : 100;
+
+            num1 = Math.floor(Math.random() * maxNum) + 1;
+            num2 = Math.floor(Math.random() * maxNum) + 1;
+
+            const operations = ['+', '-', '*', '/'];
+            operation = operations[Math.floor(Math.random() * operations.length)];
+
+            // Ensure that answers are integers (no decimals)
+            if (operation === '/') {
+                num2 = Math.max(1, num2); // Avoid division by zero
+                correctAnswer = Math.floor(num1 / num2);
+                questionEl.textContent = `Solve: ${num1} ÷ ${num2} 🧮`;
+            } else if (operation === '+') {
+                correctAnswer = num1 + num2;
+                questionEl.textContent = `Solve: ${num1} + ${num2} 🧮`;
+            } else if (operation === '-') {
+                correctAnswer = num1 - num2;
+                questionEl.textContent = `Solve: ${num1} - ${num2} 🧮`;
+            } else if (operation === '*') {
+                correctAnswer = num1 * num2;
+                questionEl.textContent = `Solve: ${num1} * ${num2} 🧮`;
+            }
+        }
+
+        // Check the user's answer
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer").value;
+            if (parseInt(userAnswer) === correctAnswer) {
+                score++;
+                streak++;
+                feedback.textContent = "Correct! 🎉";
+                feedback.className = "feedback correct";
+                createConfetti();
+            } else {
+                streak = 0;
+                feedback.textContent = `Oops! ❌ Correct answer: ${correctAnswer}`;
+                feedback.className = "feedback wrong";
+            }
+
+            document.getElementById("score").textContent = `Score: ${score} 🏅`;
+            document.getElementById("streak").textContent = `Streak: ${streak} 💪`;
+            generateQuestion();
+            document.getElementById("answer").value = "";
+            progressBar.style.width = '100%';
+        }
+
+        // Confetti Animation
+        function createConfetti() {
+            let confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            document.body.appendChild(confetti);
+            setTimeout(() => { confetti.remove(); }, 1500);
+        }
+
+        // Timer
+        function startTimer() {
+            const interval = setInterval(() => {
+                time--;
+                timerDisplay.textContent = time;
+                progressBar.style.width = `${(time / 60) * 100}%`;
+                if (time <= 0) {
+                    clearInterval(interval);
+                    alert("Time's up! Final Score: " + score);
+                    resetGame();
+                }
+            }, 1000);
+        }
+
+        // Reset the Game
+        function resetGame() {
+            score = 0;
+            streak = 0;
+            time = 60;
+            document.getElementById("score").innerText = "Score: 0 🏅";
+            document.getElementById("streak").innerText = "Streak: 0 💪";
+            timerDisplay.innerText = "60 ⏳";
+            generateQuestion();
+        }
+
+        // Start the Game
+        generateQuestion();
+        startTimer();
+
+        // Submit answer on Enter key press
+        document.getElementById("answer").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkAnswer();
+            }
+        });
+    </script>
+
+</body>
+</html>
