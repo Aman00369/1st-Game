@@ -1,267 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Previous head section and styles remain the same -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-Man's Crazy Calculus - Greatest of All Time 🧠🎉</title>
+    <title>A-Man's Crazy Calculus - Enhanced Edition 🧠✨</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
-        /* Previous styles remain unchanged */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #2F5B3C, #3C8D3E);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            font-size: 14px;
+            min-height: 100vh;
+            font-size: 16px;
             text-align: center;
-            padding: 0 15px;
-            overflow: hidden;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
         }
 
         .container {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px;
+            border-radius: 24px;
+            padding: 30px;
             width: 100%;
-            max-width: 600px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            animation: fadeIn 1.5s ease-in-out;
-            color: #E0E0E0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Previous styles continue... */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            max-width: 700px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #D1D1D1;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-        }
-
-        #question {
-            font-size: 1.6rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            padding: 15px;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            line-height: 1.4;
-            min-height: 70px;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         select, input, button {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+            border: none;
             font-size: 1.1rem;
-            border: 2px solid #2D6A3A;
-            border-radius: 10px;
-            outline: none;
-            background-color: #4D8B59;
-            color: white;
-            margin-top: 15px;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
 
-        /* Rest of the previous styles... */
+        select {
+            background: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        button {
+            background: linear-gradient(45deg, #00b4db, #0083b0);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00b4db, #0083b0);
+            transition: width 0.3s linear;
+        }
+
+        .feedback {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 12px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: rgba(46, 213, 115, 0.2);
+        }
+
+        .feedback.wrong {
+            background: rgba(255, 71, 87, 0.2);
+        }
+
+        .achievement-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideInRight 0.5s ease, slideOutRight 0.5s ease 2.5s forwards;
+            z-index: 1000;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        .difficulty-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>A-Man's Crazy Calculus 🧠🎉</h1>
-        <select id="difficulty" onchange="resetGame()">
+        <h1>A-Man's Crazy Calculus - Enhanced Edition 🧠✨</h1>
+
+        <select id="difficulty" onchange="resetGame()" class="animate__animated animate__fadeIn">
+            <option value="beginner">Beginner</option>
             <option value="easy">Easy</option>
             <option value="moderate">Moderate</option>
             <option value="difficult">Difficult</option>
+            <option value="expert">Expert</option>
+            <option value="genius">Genius</option>
         </select>
-        <div id="question"></div>
-        <input type="number" id="answer" placeholder="Enter your answer" step="any" autofocus>
-        <button onclick="checkAnswer()">Submit 🏆</button>
-        <div id="score">Score: 0 🏅</div>
-        <div id="streak">Streak: 0 💪</div>
-        <div id="timer">Time Left: <span id="time">60</span> seconds ⏳</div>
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progress-bar"></div>
+
+        <div id="question" class="animate__animated animate__fadeIn"></div>
+        <input type="number" id="answer" placeholder="Your answer here..." step="any" autofocus>
+        <button onclick="checkAnswer()" class="animate__animated animate__pulse">Submit Answer 🎯</button>
+
+        <div class="stats-container">
+            <div class="stat-box">
+                <div id="score">Score: 0 🏆</div>
+            </div>
+            <div class="stat-box">
+                <div id="streak">Streak: 0 🔥</div>
+            </div>
+            <div class="stat-box">
+                <div id="timer">Time: 60s ⏳</div>
+            </div>
         </div>
-        <div class="feedback" id="feedback"></div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div id="feedback" class="feedback"></div>
     </div>
 
     <script>
-        let score = 0, streak = 0, time = 60, correctAnswer;
-        const timerDisplay = document.getElementById("time");
-        const feedback = document.getElementById("feedback");
-        const questionEl = document.getElementById("question");
-        const progressBar = document.getElementById("progress-bar");
-        const difficultySelector = document.getElementById("difficulty");
+        let score = 0;
+        let streak = 0;
+        let timeLeft = 60;
+        let currentAnswer;
+        let gameInterval;
+        let isPaused = false;
+        let highScore = localStorage.getItem('highScore') || 0;
 
-        // Math facts database
-        const mathFacts = [
-            { question: "What is the smallest prime number?", answer: 2 },
-            { question: "How many sides does a hexagon have?", answer: 6 },
-            { question: "What is the square root of 144?", answer: 12 },
-            { question: "What is the value of 2³?", answer: 8 },
-            { question: "How many degrees are in a circle?", answer: 360 },
-            { question: "What is the sum of angles in a triangle?", answer: 180 },
-            { question: "What is the factorial of 5?", answer: 120 },
-            { question: "What is the value of π rounded to nearest integer?", answer: 3 }
-        ];
-
-        // Word problem templates
-        const wordProblems = {
-            geometry: [
-                {
-                    template: (n) => `What is the area of a square with side length ${n}?`,
-                    operation: (n) => n * n
-                },
-                {
-                    template: (n) => `What is the perimeter of a rectangle with length ${n} and width ${Math.floor(n/2)}?`,
-                    operation: (n) => 2 * (n + Math.floor(n/2))
-                },
-                {
-                    template: (n) => `What is the circumference of a circle with radius ${n}? (Use 3 for π)`,
-                    operation: (n) => 2 * 3 * n
-                }
-            ],
-            arithmetic: [
-                {
-                    template: (n) => `What is the factorial of ${n}?`,
-                    operation: (n) => factorial(n)
-                },
-                {
-                    template: (n) => `What is ${n} cubed?`,
-                    operation: (n) => n * n * n
-                },
-                {
-                    template: (n) => `What is double of ${n}?`,
-                    operation: (n) => n * 2
-                }
-            ],
-            primes: [
-                {
-                    template: (n) => `What is the ${n}th prime number?`,
-                    operation: (n) => getNthPrime(n)
-                }
-            ]
+        const questionTypes = {
+            beginner: {
+                range: [1, 5],
+                operations: ['add', 'subtract']
+            },
+            easy: {
+                range: [1, 10],
+                operations: ['add', 'subtract', 'multiply']
+            },
+            moderate: {
+                range: [1, 20],
+                operations: ['add', 'subtract', 'multiply', 'divide']
+            },
+            difficult: {
+                range: [1, 50],
+                operations: ['multiply', 'divide', 'power']
+            },
+            expert: {
+                range: [1, 100],
+                operations: ['power', 'root', 'log']
+            },
+            genius: {
+                range: [1, 200],
+                operations: ['power', 'root', 'log', 'factorial']
+            }
         };
 
-        function factorial(n) {
-            if (n === 0 || n === 1) return 1;
-            return n * factorial(n - 1);
-        }
-
-        function isPrime(num) {
-            for(let i = 2; i <= Math.sqrt(num); i++)
-                if(num % i === 0) return false;
-            return num > 1;
-        }
-
-        function getNthPrime(n) {
-            let count = 0, num = 1;
-            while(count < n) {
-                num++;
-                if(isPrime(num)) count++;
-            }
-            return num;
-        }
-
         function generateQuestion() {
-            const difficulty = difficultySelector.value;
-            const questionTypes = ['word', 'geometry', 'fact', 'prime'];
-            const type = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+            const difficulty = document.getElementById('difficulty').value;
+            const settings = questionTypes[difficulty];
+            const operation = settings.operations[Math.floor(Math.random() * settings.operations.length)];
 
-            if (type === 'fact') {
-                const fact = mathFacts[Math.floor(Math.random() * mathFacts.length)];
-                questionEl.textContent = fact.question + " 🤔";
-                correctAnswer = fact.answer;
-                return;
+            const num1 = Math.floor(Math.random() * (settings.range[1] - settings.range[0])) + settings.range[0];
+            const num2 = Math.floor(Math.random() * (settings.range[1] - settings.range[0])) + settings.range[0];
+
+            let question, answer;
+
+            switch(operation) {
+                case 'add':
+                    question = `What is ${num1} + ${num2}?`;
+                    answer = num1 + num2;
+                    break;
+                case 'subtract':
+                    question = `What is ${num1} - ${num2}?`;
+                    answer = num1 - num2;
+                    break;
+                case 'multiply':
+                    question = `What is ${num1} × ${num2}?`;
+                    answer = num1 * num2;
+                    break;
+                case 'divide':
+                    answer = num1;
+                    question = `What is ${num1 * num2} ÷ ${num2}?`;
+                    break;
+                case 'power':
+                    question = `What is ${num1} to the power of 2?`;
+                    answer = Math.pow(num1, 2);
+                    break;
+                case 'root':
+                    answer = num1;
+                    question = `What is the square root of ${num1 * num1}?`;
+                    break;
+                case 'log':
+                    answer = Math.log10(num1).toFixed(2);
+                    question = `What is log₁₀(${num1})? (Round to 2 decimal places)`;
+                    break;
+                case 'factorial':
+                    const n = Math.min(num1 % 10, 5); // Limit factorial to prevent huge numbers
+                    question = `What is ${n}! (factorial)?`;
+                    answer = factorial(n);
+                    break;
             }
 
-            const maxNum = difficulty === 'easy' ? 5 : difficulty === 'moderate' ? 8 : 10;
-            const num = Math.floor(Math.random() * maxNum) + 1;
+            document.getElementById('question').textContent = question;
+            currentAnswer = answer;
+        }
 
-            if (type === 'geometry') {
-                const problem = wordProblems.geometry[Math.floor(Math.random() * wordProblems.geometry.length)];
-                questionEl.textContent = problem.template(num) + " 📐";
-                correctAnswer = problem.operation(num);
-            } else if (type === 'prime') {
-                const problem = wordProblems.primes[0];
-                questionEl.textContent = problem.template(num) + " 🔢";
-                correctAnswer = problem.operation(num);
-            } else {
-                const problem = wordProblems.arithmetic[Math.floor(Math.random() * wordProblems.arithmetic.length)];
-                questionEl.textContent = problem.template(num) + " 🧮";
-                correctAnswer = problem.operation(num);
-            }
+        function factorial(n) {
+            return (n <= 1) ? 1 : n * factorial(n - 1);
         }
 
         function checkAnswer() {
-            const userAnswer = parseFloat(document.getElementById("answer").value);
-            if (userAnswer === correctAnswer) {
-                score++;
+            const userAnswer = parseFloat(document.getElementById('answer').value);
+            const feedback = document.getElementById('feedback');
+
+            if (Math.abs(userAnswer - currentAnswer) < 0.1) {
+                score += getDifficultyPoints();
                 streak++;
-                feedback.textContent = "Correct! 🎉";
-                feedback.className = "feedback correct";
+                feedback.textContent = `Correct! 🎉 +${getDifficultyPoints()} points`;
+                feedback.className = 'feedback correct animate__animated animate__bounceIn';
+
+                if (score > highScore) {
+                    highScore = score;
+                    localStorage.setItem('highScore', highScore);
+                    showAchievement('New High Score! 🏆');
+                }
             } else {
                 streak = 0;
-                feedback.textContent = `Oops! ❌ Correct answer: ${correctAnswer}`;
-                feedback.className = "feedback wrong";
+                feedback.textContent = `Incorrect! The answer was ${currentAnswer} ❌`;
+                feedback.className = 'feedback wrong animate__animated animate__shakeX';
             }
 
-            document.getElementById("score").textContent = `Score: ${score} 🏅`;
-            document.getElementById("streak").textContent = `Streak: ${streak} 💪`;
-            document.getElementById("answer").value = "";
+            updateStats();
+            document.getElementById('answer').value = '';
             generateQuestion();
-            progressBar.style.width = '100%';
         }
 
-        // Previous timer and reset functions remain the same
+        function getDifficultyPoints() {
+            const difficultyMultipliers = {
+                beginner: 1,
+                easy: 2,
+                moderate: 3,
+                difficult: 5,
+                expert: 8,
+                genius: 10
+            };
+            return difficultyMultipliers[document.getElementById('difficulty').value];
+        }
+
+        function updateStats() {
+            document.getElementById('score').textContent = `Score: ${score} 🏆`;
+            document.getElementById('streak').textContent = `Streak: ${streak} 🔥`;
+            document.getElementById('timer').textContent = `Time: ${timeLeft}s ⏳`;
+            document.getElementById('progress-fill').style.width = `${(timeLeft / 60) * 100}%`;
+        }
+
+        function showAchievement(text) {
+            const achievement = document.createElement('div');
+            achievement.className = 'achievement-popup';
+            achievement.textContent = text;
+            document.body.appendChild(achievement);
+            setTimeout(() => achievement.remove(), 3000);
+        }
+
         function startTimer() {
-            const interval = setInterval(() => {
-                time--;
-                timerDisplay.textContent = time;
-                progressBar.style.width = `${(time / 60) * 100}%`;
-                if (time <= 0) {
-                    clearInterval(interval);
-                    alert("Time's up! Final Score: " + score);
-                    resetGame();
+            clearInterval(gameInterval);
+            gameInterval = setInterval(() => {
+                if (!isPaused) {
+                    timeLeft--;
+                    updateStats();
+
+                    if (timeLeft <= 0) {
+                        clearInterval(gameInterval);
+                        endGame();
+                    }
                 }
             }, 1000);
+        }
+
+        function endGame() {
+            showAchievement(`Game Over! Final Score: ${score}`);
+            setTimeout(() => {
+                if (confirm(`Game Over!\nFinal Score: ${score}\nHigh Score: ${highScore}\n\nPlay again?`)) {
+                    resetGame();
+                }
+            }, 500);
         }
 
         function resetGame() {
             score = 0;
             streak = 0;
-            time = 60;
-            document.getElementById("score").innerText = "Score: 0 🏅";
-            document.getElementById("streak").innerText = "Streak: 0 💪";
-            timerDisplay.innerText = "60";
+            timeLeft = 60;
+            isPaused = false;
+            updateStats();
             generateQuestion();
+            startTimer();
         }
 
-        document.getElementById("answer").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
+        // Event Listeners
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.activeElement === document.getElementById('answer')) {
                 checkAnswer();
+            }
+            if (e.key === 'Escape') {
+                isPaused = !isPaused;
+                showAchievement(isPaused ? 'Game Paused ⏸️' : 'Game Resumed ▶️');
             }
         });
 
+        // Initialize game
         generateQuestion();
         startTimer();
     </script>
