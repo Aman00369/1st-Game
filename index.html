@@ -96,9 +96,25 @@
     </style>
 </head>
 <body>
-    <!-- Rest of the HTML structure remains the same -->
+    <div class="container">
+        <h1>A-Man's Advanced Quiz Challenge 🎮</h1>
+        <div class="difficulty-selector">
+            <button class="difficulty-btn" onclick="startQuiz('easy')">Easy</button>
+            <button class="difficulty-btn" onclick="startQuiz('medium')">Medium</button>
+            <button class="difficulty-btn" onclick="startQuiz('hard')">Hard</button>
+        </div>
+        <div id="quiz-container" style="display: none;">
+            <div class="question" id="question"></div>
+            <div id="options"></div>
+            <button class="option-button" id="hint-btn" onclick="showHint()">Hint</button>
+            <div class="stats-container">
+                <div class="stat-box" id="score">Score: 0</div>
+                <div class="stat-box" id="timer">Time: 0s</div>
+                <div class="stat-box" id="progress">Question: 1/3</div>
+            </div>
+        </div>
+    </div>
     <script>
-        // Updated questions object with logical reasoning
         const questions = {
             easy: [
                 {
@@ -161,7 +177,76 @@
                 }
             ]
         };
-        // Rest of the JavaScript code remains the same
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timer;
+        let selectedDifficulty = '';
+        let quizQuestions = [];
+
+        function startQuiz(difficulty) {
+            selectedDifficulty = difficulty;
+            quizQuestions = questions[difficulty];
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('quiz-container').style.display = 'block';
+            document.querySelector('.difficulty-selector').style.display = 'none';
+            loadQuestion();
+            startTimer();
+        }
+
+        function loadQuestion() {
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = '';
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-button';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsElement.appendChild(button);
+            });
+
+            document.getElementById('progress').textContent = `Question: ${currentQuestionIndex + 1}/${quizQuestions.length}`;
+        }
+
+        function checkAnswer(selectedOption) {
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            if (selectedOption === currentQuestion.answer) {
+                score++;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+            document.getElementById('score').textContent = `Score: ${score}`;
+        }
+
+        function showHint() {
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            alert(currentQuestion.hint);
+        }
+
+        function startTimer() {
+            let time = 0;
+            timer = setInterval(() => {
+                time++;
+                document.getElementById('timer').textContent = `Time: ${time}s`;
+            }, 1000);
+        }
+
+        function endQuiz() {
+            clearInterval(timer);
+            alert(`Quiz completed! Your score is ${score}/${quizQuestions.length}`);
+            document.getElementById('quiz-container').style.display = 'none';
+            document.querySelector('.difficulty-selector').style.display = 'flex';
+        }
     </script>
 </body>
 </html>
