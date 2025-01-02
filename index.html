@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-Man's Advanced Quiz Challenge 🎮</title>
+    <title>A-Man's Crazy Calculus🎮</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         * {
@@ -12,6 +12,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         }
+
         body {
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             background-size: 400% 400%;
@@ -21,232 +22,395 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-size: clamp(12px, 2vw, 14px);
+            font-size: clamp(14px, 2.5vw, 16px);
             text-align: center;
-            padding: 10px;
+            padding: 20px;
         }
+
         @keyframes gradientBG {
             0% { background-position: 0% 50% }
             50% { background-position: 100% 50% }
             100% { background-position: 0% 50% }
         }
+
         .container {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: clamp(15px, 3vw, 20px);
-            width: min(95%, 600px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: clamp(20px, 4vw, 30px);
+            width: min(95%, 700px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            max-height: 95vh;
-            overflow-y: auto;
         }
+
         h1 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: 15px;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 25px;
             background: linear-gradient(45deg, #fff, #f0f0f0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
+
         .difficulty-selector {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
+
         .difficulty-btn {
-            padding: 8px 15px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             transition: transform 0.2s;
             font-weight: bold;
-            font-size: 0.9rem;
         }
+
+        .difficulty-btn.easy {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .difficulty-btn.medium {
+            background: #FFC107;
+            color: black;
+        }
+
+        .difficulty-btn.hard {
+            background: #F44336;
+            color: white;
+        }
+
+        .difficulty-btn:hover {
+            transform: scale(1.05);
+        }
+
         .question {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            margin-bottom: 15px;
-            line-height: 1.3;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
+
         .option-button {
             display: block;
             background: rgba(255, 255, 255, 0.2);
-            margin: 8px 0;
-            padding: clamp(8px, 1.5vw, 12px);
-            border-radius: 8px;
+            margin: 10px 0;
+            padding: clamp(12px, 2vw, 15px);
+            border-radius: 12px;
             color: white;
-            font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+            font-size: clamp(1rem, 2vw, 1.2rem);
             border: none;
             width: 100%;
             cursor: pointer;
             transition: all 0.3s ease;
         }
+
+        .option-button:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateX(5px);
+        }
+
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 15px 0;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
         }
+
         .stat-box {
             background: rgba(255, 255, 255, 0.15);
-            padding: 10px;
+            padding: 15px;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .timer {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .achievement-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 15px 25px;
             border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideInRight 0.5s ease, slideOutRight 0.5s ease 2.5s forwards;
+            z-index: 1000;
+        }
+
+        .hint-button {
+            background: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            margin: 10px 0;
+            cursor: pointer;
             font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .hint-button:hover {
+            opacity: 1;
+        }
+
+        #hint-text {
+            font-size: 0.9rem;
+            color: #FFD700;
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00b4db, #0083b0);
+            transition: width 0.3s linear;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>A-Man's Advanced Quiz Challenge 🎮</h1>
+        <h1>A-Man's Crazy Calculus 🎮</h1>
+        
         <div class="difficulty-selector">
-            <button class="difficulty-btn" onclick="startQuiz('easy')">Easy</button>
-            <button class="difficulty-btn" onclick="startQuiz('medium')">Medium</button>
-            <button class="difficulty-btn" onclick="startQuiz('hard')">Hard</button>
+            <button class="difficulty-btn easy" onclick="setDifficulty('easy')">Easy</button>
+            <button class="difficulty-btn medium" onclick="setDifficulty('medium')">Medium</button>
+            <button class="difficulty-btn hard" onclick="setDifficulty('hard')">Hard</button>
         </div>
-        <div id="quiz-container" style="display: none;">
-            <div class="question" id="question"></div>
-            <div id="options"></div>
-            <button class="option-button" id="hint-btn" onclick="showHint()">Hint</button>
-            <div class="stats-container">
-                <div class="stat-box" id="score">Score: 0</div>
-                <div class="stat-box" id="timer">Time: 0s</div>
-                <div class="stat-box" id="progress">Question: 1/3</div>
+
+        <div class="timer">
+            Time: <span id="timer">60s ⏳</span>
+        </div>
+
+        <div id="question" class="question"></div>
+        <div class="options" id="options"></div>
+        <button id="hint-btn" class="hint-button" onclick="showHint()">Get Hint 💡</button>
+        <div id="hint-text"></div>
+        <div id="feedback" class="feedback"></div>
+
+        <div class="stats-container">
+            <div class="stat-box">
+                Score: <span id="score">0</span>
+            </div>
+            <div class="stat-box">
+                Streak: <span id="streak">0</span>
+            </div>
+            <div class="stat-box">
+                Level: <span id="level">Easy</span>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
             </div>
         </div>
     </div>
+
     <script>
+        let score = 0;
+        let streak = 0;
+        let timeLeft = 60;
+        let currentAnswer;
+        let currentQuestion;
+        let gameInterval;
+        let difficulty = 'easy';
+        let hintsRemaining = 3;
+        let currentHint = '';
+        let highScore = localStorage.getItem('highScore') || 0;
+
         const questions = {
             easy: [
                 {
-                    question: "If all cats have tails, and Whiskers is a cat, what can we conclude?",
-                    options: ["Whiskers has a tail", "Whiskers might have a tail", "We can't be sure", "None of the above"],
-                    answer: "Whiskers has a tail",
-                    hint: "Think about basic logical deduction"
+                    question: "What is 5 + 7?",
+                    options: ["11", "12", "13", "14"],
+                    answer: "12",
+                    hint: "Count on your fingers from 5, adding 7 more"
                 },
                 {
-                    question: "What number comes next: 2, 4, 8, 16, ...?",
-                    options: ["20", "24", "32", "64"],
-                    answer: "32",
-                    hint: "Each number is doubled"
+                    question: "Which number comes next: 2, 4, 6, 8, ...?",
+                    options: ["9", "10", "11", "12"],
+                    answer: "10",
+                    hint: "Look for the pattern - we're counting by 2s"
                 },
                 {
-                    question: "If today is Tuesday, what day was it yesterday?",
-                    options: ["Sunday", "Monday", "Wednesday", "Thursday"],
-                    answer: "Monday",
-                    hint: "Count backwards one day"
+                    question: "If you have 3 apples and get 2 more, how many do you have?",
+                    options: ["4", "5", "6", "7"],
+                    answer: "5",
+                    hint: "Simply add 3 and 2 together"
                 }
             ],
             medium: [
                 {
-                    question: "If no A is B, and all B is C, what can we conclude about A and C?",
-                    options: ["All A is C", "No A is C", "Some A is C", "We can't conclude anything"],
-                    answer: "We can't conclude anything",
-                    hint: "Draw a Venn diagram"
+                    question: "If 3x + 7 = 22, what is x?",
+                    options: ["3", "5", "7", "8"],
+                    answer: "5",
+                    hint: "Subtract 7 from both sides, then divide by 3"
                 },
                 {
-                    question: "Complete the pattern: AABABC, AABABC, AAB...",
-                    options: ["ABC", "AAB", "ABD", "ABA"],
-                    answer: "ABC",
-                    hint: "Look for the repeating sequence"
+                    question: "What is the square root of 144?",
+                    options: ["10", "11", "12", "13"],
+                    answer: "12",
+                    hint: "Think of a number that multiplied by itself gives 144"
                 },
                 {
-                    question: "If x < y and y < z, what is the relationship between x and z?",
-                    options: ["x > z", "x = z", "x < z", "Can't determine"],
-                    answer: "x < z",
-                    hint: "Think about transitive properties"
+                    question: "Solve: 15% of 200",
+                    options: ["25", "30", "35", "40"],
+                    answer: "30",
+                    hint: "Convert 15% to 0.15 and multiply"
                 }
             ],
             hard: [
                 {
-                    question: "In a race, Tom is faster than Dick, Dick is faster than Harry. Who is the slowest?",
-                    options: ["Tom", "Dick", "Harry", "Can't determine"],
-                    answer: "Harry",
-                    hint: "Order them from fastest to slowest"
+                    question: "If log₁₀(x) = 2, what is x?",
+                    options: ["20", "50", "100", "200"],
+                    answer: "100",
+                    hint: "10 raised to what power gives you this number?"
                 },
                 {
-                    question: "If all A are B, and some B are C, what can we conclude about A and C?",
-                    options: ["All A are C", "Some A are C", "No A are C", "Can't conclude anything"],
-                    answer: "Can't conclude anything",
-                    hint: "Try different arrangements with Venn diagrams"
+                    question: "What is the derivative of x²?",
+                    options: ["x", "2x", "2x²", "x/2"],
+                    answer: "2x",
+                    hint: "Power rule: multiply by the power and reduce the exponent by 1"
                 },
                 {
-                    question: "What comes next: 1, 4, 9, 16, 25, ...?",
-                    options: ["30", "36", "42", "49"],
-                    answer: "36",
-                    hint: "These are square numbers"
+                    question: "Solve: sin²(x) + cos²(x) = ?",
+                    options: ["0", "1", "2", "π"],
+                    answer: "1",
+                    hint: "This is a fundamental trigonometric identity"
                 }
             ]
         };
 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let timer;
-        let selectedDifficulty = '';
-        let quizQuestions = [];
-
-        function startQuiz(difficulty) {
-            selectedDifficulty = difficulty;
-            quizQuestions = questions[difficulty];
-            currentQuestionIndex = 0;
-            score = 0;
-            document.getElementById('quiz-container').style.display = 'block';
-            document.querySelector('.difficulty-selector').style.display = 'none';
-            loadQuestion();
-            startTimer();
+        function setDifficulty(level) {
+            difficulty = level;
+            document.getElementById('level').textContent = level.charAt(0).toUpperCase() + level.slice(1);
+            resetGame();
         }
 
-        function loadQuestion() {
-            const questionElement = document.getElementById('question');
-            const optionsElement = document.getElementById('options');
-            const currentQuestion = quizQuestions[currentQuestionIndex];
+        function generateQuestion() {
+            const currentQuestions = questions[difficulty];
+            const randomIndex = Math.floor(Math.random() * currentQuestions.length);
+            currentQuestion = currentQuestions[randomIndex];
 
-            questionElement.textContent = currentQuestion.question;
-            optionsElement.innerHTML = '';
+            document.getElementById('question').textContent = currentQuestion.question;
+            currentAnswer = currentQuestion.answer;
+            currentHint = currentQuestion.hint;
 
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-button';
-                button.textContent = option;
-                button.onclick = () => checkAnswer(option);
-                optionsElement.appendChild(button);
-            });
-
-            document.getElementById('progress').textContent = `Question: ${currentQuestionIndex + 1}/${quizQuestions.length}`;
-        }
-
-        function checkAnswer(selectedOption) {
-            const currentQuestion = quizQuestions[currentQuestionIndex];
-            if (selectedOption === currentQuestion.answer) {
-                score++;
-            }
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quizQuestions.length) {
-                loadQuestion();
-            } else {
-                endQuiz();
-            }
-            document.getElementById('score').textContent = `Score: ${score}`;
+            const optionsHTML = currentQuestion.options.map(option => 
+                `<button class="option-button" onclick="checkAnswer('${option}')">${option}</button>`
+            ).join('');
+            document.getElementById('options').innerHTML = optionsHTML;
+            document.getElementById('hint-text').textContent = '';
         }
 
         function showHint() {
-            const currentQuestion = quizQuestions[currentQuestionIndex];
-            alert(currentQuestion.hint);
+            if (hintsRemaining > 0) {
+                hintsRemaining--;
+                document.getElementById('hint-text').textContent = currentHint;
+                document.getElementById('hint-btn').textContent = `Hints Left: ${hintsRemaining} 💡`;
+            } else {
+                document.getElementById('hint-text').textContent = "No hints remaining!";
+            }
         }
 
-        function startTimer() {
-            let time = 0;
-            timer = setInterval(() => {
-                time++;
-                document.getElementById('timer').textContent = `Time: ${time}s`;
-            }, 1000);
+        function checkAnswer(userAnswer) {
+            const pointsMultiplier = {
+                'easy': 1,
+                'medium': 2,
+                'hard': 3
+            };
+
+            if (userAnswer === currentAnswer) {
+                const points = 10 * pointsMultiplier[difficulty];
+                score += points;
+                streak++;
+                document.getElementById('feedback').innerHTML = 
+                    `<div class='feedback correct'>Correct! +${points} points 🎉</div>`;
+            } else {
+                streak = 0;
+                document.getElementById('feedback').innerHTML = 
+                    `<div class='feedback wrong'>Wrong! Correct answer: ${currentAnswer} 😔</div>`;
+            }
+
+            updateStats();
+            generateQuestion();
         }
 
-        function endQuiz() {
-            clearInterval(timer);
-            alert(`Quiz completed! Your score is ${score}/${quizQuestions.length}`);
-            document.getElementById('quiz-container').style.display = 'none';
-            document.querySelector('.difficulty-selector').style.display = 'flex';
+        function updateStats() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+            
+            const progress = (score / (200 * (difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3))) * 100;
+            document.getElementById('progress-fill').style.width = `${Math.min(100, progress)}%`;
+
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore);
+                showAchievement("New High Score! 🏅");
+            }
+
+            if (streak === 5) showAchievement("5 Streak! 🔥");
         }
+
+        function showAchievement(message) {
+            const achievementPopup = document.createElement('div');
+            achievementPopup.classList.add('achievement-popup', 'animate__animated', 'animate__bounceIn');
+            achievementPopup.textContent = message;
+            document.body.appendChild(achievementPopup);
+            setTimeout(() => achievementPopup.remove(), 3000);
+        }
+
+        function countdownTimer() {
+            if (timeLeft <= 0) {
+                clearInterval(gameInterval);
+                const finalScore = score;
+                alert(`Game Over! Final Score: ${finalScore} 🎮`);
+                resetGame();
+            } else {
+                document.getElementById('timer').textContent = `${timeLeft}s ⏳`;
+                timeLeft--;
+            }
+        }
+
+        function resetGame() {
+            score = 0;
+            streak = 0;
+            timeLeft = 60;
+            hintsRemaining = 3;
+            document.getElementById('score').textContent = '0';
+            document.getElementById('streak').textContent = '0';
+            document.getElementById('timer').textContent = `${timeLeft}s ⏳`;
+            document.getElementById('hint-btn').textContent = 'Get Hint 💡';
+            document.getElementById('hint-text').textContent = '';
+            document.getElementById('progress-fill').style.width = '0%';
+            
+            clearInterval(gameInterval);
+            generateQuestion();
+            gameInterval = setInterval(countdownTimer, 1000);
+        }
+
+        // Start the game
+        resetGame();
     </script>
 </body>
 </html>
